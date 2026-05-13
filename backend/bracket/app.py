@@ -1,5 +1,6 @@
 import glob
 import time
+import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -154,6 +155,7 @@ async def generic_exception_handler(request: Request, exc: Exception) -> JSONRes
     return JSONResponse({"detail": "Internal server error"}, status_code=500)
 
 
+os.makedirs("static", exist_ok=True)
 app.mount(f"{config.api_prefix}/static", StaticFiles(directory="static"), name="static")
 
 for tag, router in routers.items():
