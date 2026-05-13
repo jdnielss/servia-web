@@ -166,12 +166,23 @@ if config.serve_frontend:
     msg = "API_PREFIX env var must be set (e.g. `/api`) when serving the frontend"
     assert config.api_prefix.startswith("/"), msg
 
+    logger.info(f"serve_frontend is true, API_PREFIX: {config.api_prefix}")
+    logger.info(f"Current working directory: {os.getcwd()}")
+    logger.info(f"Files in current directory: {os.listdir('.')}")
+    
     frontend_root = Path("frontend-dist")
+    logger.info(f"frontend_root exists: {frontend_root.exists()}")
+    if frontend_root.exists():
+        logger.info(f"Files in frontend-dist: {list(frontend_root.iterdir())}")
+    
     allowed_paths = list(glob.iglob("frontend-dist/**/*", recursive=True))
 
     @app.get("/{full_path:path}")
     async def frontend(full_path: str) -> FileResponse:
+        logger.info(f"Frontend request for path: {full_path}")
         path = frontend_root / Path(full_path)
+        logger.info(f"Resolved path: {path}")
+        logger.info(f"Path exists: {path.exists()}")
 
         # Checking `str(path) in allowed_paths` should be enough here but we check for more cases
         # to be sure and avoid AI tools raising false positives.
@@ -181,6 +192,10 @@ if config.serve_frontend:
             and str(path) in allowed_paths
             and frontend_root in path.parents
         ):
+            logger.info(f"Serving file: {path}")
             return FileResponse(path)
 
+        logger.info(f"Serving index.html")
         return FileResponse(frontend_root / Path("index.html"))
+else:
+    logger.info("serve_frontend is false")
