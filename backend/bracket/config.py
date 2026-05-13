@@ -33,9 +33,9 @@ class Config(BaseSettings):
     allow_user_registration: bool = True
     allow_demo_user_registration: bool = True
     captcha_secret: str | None = None
-    base_url: str = "http://localhost:8400"
+    base_url: str = "https://servia.casafamiliapadel.club"
     cors_origin_regex: str = ""
-    cors_origins: str = "*"
+    cors_origins: list[str] = ["*"]
     jwt_secret: str
     auto_run_migrations: bool = True
     pg_dsn: PostgresDsn = PostgresDsn("postgresql://user:pass@localhost:5432/db")
@@ -44,7 +44,7 @@ class Config(BaseSettings):
     api_prefix: str = ""
 
     def is_cors_enabled(self) -> bool:
-        return self.cors_origins != "*"
+        return self.cors_origins != ["*"]
 
 
 class CIConfig(Config):
