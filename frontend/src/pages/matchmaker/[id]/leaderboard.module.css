@@ -1,0 +1,70 @@
+.tableShell {
+  border: 1px solid #d6e4de;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfefc 100%);
+  box-shadow: 0 10px 26px rgba(2, 85, 61, 0.08);
+}
+
+.championCard {
+  border: 1px solid rgba(173, 130, 45, 0.45);
+  background: linear-gradient(130deg, #fff8eb 0%, #fff2d8 38%, #f5fbf7 100%);
+  box-shadow: 0 12px 28px rgba(173, 130, 45, 0.2);
+}
+
+.championIcon {
+  color: #8f6a23;
+  background: rgba(219, 177, 90, 0.24);
+  border: 1px solid rgba(173, 130, 45, 0.45);
+}
+
+.championLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #8a6723;
+}
+
+.championName {
+  font-size: 1.2rem;
+  line-height: 1.15;
+  font-weight: 900;
+  color: #0a4a38;
+}
+
+.championBadge {
+  color: #8f6a23;
+  background: rgba(219, 177, 90, 0.2);
+  border: 1px solid rgba(173, 130, 45, 0.45);
+}
+
+.metaBadge {
+  color: #8f6a23;
+  background: rgba(219, 177, 90, 0.2);
+  border: 1px solid rgba(173, 130, 45, 0.45);
+}
+
+.table {
+  min-width: 760px;
+}
+
+.thead th {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5c6f67;
+  border-bottom: 1px solid #dbe7e1;
+}
+
+.row td {
+  border-bottom: 1px solid #edf3f0;
+}
+
+.row:hover td {
+  background: rgba(2, 85, 61, 0.04);
+}
+
+.nameCell {
+  font-weight: 700;
+  color: #093f31;
+}

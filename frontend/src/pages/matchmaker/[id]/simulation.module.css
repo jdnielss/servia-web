@@ -1,0 +1,72 @@
+.previewAccordionItem {
+  border: 1px solid #dbe7e2;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfefc 100%);
+}
+
+.previewAccordionControl {
+  font-weight: 700;
+  color: #0a4a38;
+}
+
+.previewAccordionPanel {
+  padding-top: 0.25rem;
+}
+
+.previewMatchCard {
+  border: 1px solid #d9e7e1;
+  background: linear-gradient(170deg, #ffffff 0%, #f7fcfa 100%);
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.previewMatchCard:hover {
+  transform: translateY(-1px);
+  border-color: #bdd7cb;
+  box-shadow: 0 10px 22px rgba(2, 85, 61, 0.1);
+}
+
+.previewTeamBadge {
+  text-transform: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding-inline: 12px;
+  padding-block: 7px;
+}
+
+.previewCourtBadge {
+  text-transform: none;
+  font-weight: 700;
+  align-self: center;
+  white-space: nowrap;
+}
+
+.previewVs {
+  align-self: center;
+  letter-spacing: 0.04em;
+}
+
+.actionButton {
+  border: 1px solid #b9d5c8;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(2, 85, 61, 0.12);
+}
+
+.actionButtonPrimary {
+  background: linear-gradient(135deg, #02553d 0%, #0e6c4c 75%, #b98b45 155%);
+  border: none;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.actionButtonPrimary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  box-shadow: 0 10px 22px rgba(2, 85, 61, 0.22);
+}

@@ -1,0 +1,26 @@
+.brandButton {
+  border-radius: 999px;
+  padding: 4px 8px;
+  transition: background-color 120ms ease;
+}
+
+.brandButton:hover {
+  background-color: rgba(2, 85, 61, 0.08);
+}
+
+.brandTitle {
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: #02553d;
+  text-wrap: balance;
+}
+
+.brandFooterTitle {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  color: #02553d;
+}

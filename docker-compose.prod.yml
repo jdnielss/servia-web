@@ -1,0 +1,60 @@
+# Production: PostgreSQL (Docker volume) + app container.
+# Usage: copy deploy/prod.env.example → deploy/prod.env, edit secrets, then:
+#   ./deploy/deploy.sh
+#
+# Requires: Docker Compose v2, build from repo root.
+
+networks:
+  servia_lan:
+    driver: bridge
+
+volumes:
+  servia_pg_data:
+  servia_static_data:
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: servia-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - servia_pg_data:/var/lib/postgresql/data
+    networks:
+      - servia_lan
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  bracket:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    image: servia-bracket:${IMAGE_TAG:-latest}
+    container_name: servia-bracket
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      # Bind localhost only; put Nginx/Caddy on the host in front for HTTPS.
+      - '127.0.0.1:8400:8400'
+    environment:
+      ENVIRONMENT: PRODUCTION
+      PG_DSN: ${PG_DSN}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      BASE_URL: ${BASE_URL}
+      SERVE_FRONTEND: 'true'
+      API_PREFIX: ${API_PREFIX:-/api}
+    volumes:
+      - servia_static_data:/app/static
+    networks:
+      - servia_lan

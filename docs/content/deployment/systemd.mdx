@@ -1,0 +1,62 @@
+---
+title: Systemd
+---
+
+# Systemd
+
+This section describes how to deploy Casa Familia Padel Club (frontend and backend) as a Systemd service on Linux.
+
+This assumes:
+
+- You have installed `pnpm` and `uv`.
+- You have a PostgreSQL cluster running.
+- You have cloned Casa Familia Padel Club in `/var/lib/bracket`.
+- You have created a new user called Casa Familia Padel Club with the permissions to read
+and write in `/var/lib/bracket`.
+
+Now, You can run the application using `systemd.service` files.
+Below is a simple example of the service files for the backend and frontend:
+
+## Backend
+
+```systemd
+[Unit]
+Description=Casa Familia Padel Club backend
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=bracket
+WorkingDirectory=/var/lib/bracket/backend
+ExecStart=uv run gunicorn -k uvicorn.workers.UvicornWorker bracket.app:app --bind localhost:8400 --workers 1
+Environment=ENVIRONMENT=PRODUCTION
+TimeoutSec=15
+Restart=always
+RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## Frontend
+
+```systemd
+[Unit]
+Description=Casa Familia Padel Club frontend
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=bracket
+WorkingDirectory=/var/lib/bracket/frontend
+ExecStart=/usr/local/bin/pnpm start
+Environment=NODE_ENV=production
+TimeoutSec=15
+Restart=always
+RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target
+```
