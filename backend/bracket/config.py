@@ -35,7 +35,7 @@ class Config(BaseSettings):
     captcha_secret: str | None = None
     base_url: str = "https://servia.casafamiliapadel.club"
     cors_origin_regex: str = ""
-    cors_origins: list[str] = ["*"]
+    cors_origins: str = "*"
     jwt_secret: str
     auto_run_migrations: bool = True
     pg_dsn: PostgresDsn = PostgresDsn("postgresql://user:pass@localhost:5432/db")
@@ -43,8 +43,14 @@ class Config(BaseSettings):
     serve_frontend: bool = False
     api_prefix: str = ""
 
+    @property
+    def cors_origins_list(self) -> list[str]:
+        if self.cors_origins == "*":
+            return ["*"]
+        return [origin.strip() for origin in self.cors_origins.split(",")]
+
     def is_cors_enabled(self) -> bool:
-        return self.cors_origins != ["*"]
+        return self.cors_origins != "*"
 
 
 class CIConfig(Config):
