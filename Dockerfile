@@ -16,6 +16,7 @@ FROM python:3.14-alpine3.22
 # Install uv via pip to avoid ghcr.io auth issues
 RUN pip install uv
 
+RUN apk add --no-cache gcc musl-dev libgcc
 RUN rm -rf /var/cache/apk/*
 
 COPY backend /app

@@ -1,6 +1,7 @@
 FROM python:3.14-alpine3.22
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+RUN apk add --no-cache gcc musl-dev libgcc
 RUN rm -rf /var/cache/apk/*
 
 COPY . /app
